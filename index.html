@@ -492,7 +492,7 @@
             }
         });
 
-        // Form submission to Formspree
+        // Form submission to Airtable
         document.getElementById('rsvpForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -515,13 +515,19 @@
             
             const timestamp = new Date().toLocaleString('he-IL');
             
-            // Prepare data for Formspree
-            const formData = new FormData();
-            formData.append('שם מלא', fullName);
-            formData.append('אישור הגעה', attendingText);
-            formData.append('מספר אורחים', guestCount);
-            formData.append('תאריך ושעה', timestamp);
-            formData.append('_subject', `אישור הגעה חדש לבת מצווה גוני - ${fullName}`);
+            // Prepare data for Airtable
+            const airtableData = {
+                "records": [
+                    {
+                        "fields": {
+                            "שם מלא": fullName,
+                            "אישור הגעה": attendingText,
+                            "מספר אורחים": parseInt(guestCount) || 0,
+                            "תאריך ושעה": timestamp
+                        }
+                    }
+                ]
+            };
             
             // Show loading state
             const submitBtn = document.querySelector('.submit-btn');
@@ -529,15 +535,14 @@
             submitBtn.textContent = 'שולח...';
             submitBtn.disabled = true;
             
-            // Submit to Formspree
-            fetch('https://formspree.io/f/xblywqjq', {
+            // Submit to Airtable
+            fetch('https://api.airtable.com/v0/appBbFJX1eSYql0pl/אישורי%20הגעה', {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'Accept': 'application/json',
-                    'Origin': 'https://gimlie-adler.github.io',
-                    'Referer': 'https://gimlie-adler.github.io/596448/'
-                }
+                    'Authorization': 'Bearer pathjFOAGm0jAcuSY.7c829699fcf1bb672383b0308bb0a25b9e2d787062a63cfd8c45f5910b8e75fb',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(airtableData)
             }).then(response => {
                 if (response.ok) {
                     // Success - show success message
