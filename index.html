@@ -545,23 +545,26 @@
                 body: JSON.stringify(airtableData)
             }).then(response => {
                 if (response.ok) {
-                    // Success - show success message
+                    // Success - show success message based on attendance
                     document.getElementById('form-container').style.display = 'none';
-                    document.getElementById('success-message').classList.add('show');
                     
-                    // Reset form after 5 seconds
-                    setTimeout(() => {
-                        document.getElementById('rsvpForm').reset();
-                        document.querySelectorAll('.radio-option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        document.getElementById('guests-section').classList.remove('show');
-                        document.getElementById('custom-guest-count').style.display = 'none';
-                        document.getElementById('form-container').style.display = 'block';
-                        document.getElementById('success-message').classList.remove('show');
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }, 5000);
+                    // Update success message based on response
+                    const successMessage = document.getElementById('success-message');
+                    const successIcon = successMessage.querySelector('.success-icon');
+                    const successTitle = successMessage.querySelector('h2');
+                    const successText = successMessage.querySelector('p');
+                    
+                    if (attending === 'yes') {
+                        successIcon.textContent = '🎊';
+                        successTitle.textContent = 'תודה רבה!';
+                        successText.innerHTML = 'קיבלנו את אישור ההגעה שלך.<br>נתראה בבת המצווה של גוני! 💛';
+                    } else {
+                        successIcon.textContent = '💛';
+                        successTitle.textContent = 'תודה על העדכון';
+                        successText.innerHTML = 'קיבלנו את התשובה שלך.<br>מצטערים שלא תגיעו. מקווים להתראות בהקדם';
+                    }
+                    
+                    successMessage.classList.add('show');
                 } else {
                     throw new Error('שגיאה בשליחה');
                 }
