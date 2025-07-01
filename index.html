@@ -454,9 +454,9 @@
         </div>
 
         <div class="success-message" id="success-message">
-            <div class="success-icon">🎊</div>
+            <div class="success-icon">💛</div>
             <h2>תודה רבה!</h2>
-            <p>קיבלנו את אישור ההגעה שלך.<br>נתראה בבת המצווה של גוני! 💜</p>
+            <p>קיבלנו את אישור ההגעה שלך.<br>נתראה בבת המצווה של גוני! 💛</p>
         </div>
     </div>
 
@@ -498,11 +498,11 @@
             
             // Collect form data
             const fullName = document.getElementById('fullName').value.trim();
-            const attending = document.querySelector('input[name="attending"]:checked').value;
-            const attendingText = attending === 'yes' ? 'Yes' : 'No';
+            const attendingValue = document.querySelector('input[name="attending"]:checked').value;
+            const attendingText = attendingValue === 'yes' ? 'Yes' : 'No';
             
             let guestCount = '';
-            if (attending === 'yes') {
+            if (attendingValue === 'yes') {
                 const guestCountSelect = document.getElementById('guestCount').value;
                 if (guestCountSelect === 'אחר') {
                     guestCount = document.getElementById('customGuestCount').value || '';
@@ -554,7 +554,7 @@
                     const successTitle = successMessage.querySelector('h2');
                     const successText = successMessage.querySelector('p');
                     
-                    if (attending === 'yes') {
+                    if (attendingValue === 'yes') {
                         successIcon.textContent = '🎊';
                         successTitle.textContent = 'תודה רבה!';
                         successText.innerHTML = 'קיבלנו את אישור ההגעה שלך.<br>נתראה בבת המצווה של גוני! 💛';
