@@ -520,10 +520,10 @@
                 "records": [
                     {
                         "fields": {
-                            "שם מלא": fullName,
-                            "אישור הגעה": attendingText,
-                            "מספר אורחים": parseInt(guestCount) || 0,
-                            "תאריך ושעה": timestamp
+                            "Name": fullName,
+                            "Attending": attendingText,
+                            "Guests": parseInt(guestCount) || 0,
+                            "Timestamp": timestamp
                         }
                     }
                 ]
@@ -536,7 +536,7 @@
             submitBtn.disabled = true;
             
             // Submit to Airtable
-            fetch('https://api.airtable.com/v0/appBbFJX1eSYql0pl/אישורי%20הגעה', {
+            fetch('https://api.airtable.com/v0/appBbFJX1eSYql0pl/Responses', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer pathjFOAGm0jAcuSY.7c829699fcf1bb672383b0308bb0a25b9e2d787062a63cfd8c45f5910b8e75fb',
