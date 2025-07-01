@@ -534,7 +534,9 @@
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Origin': 'https://gimlie-adler.github.io',
+                    'Referer': 'https://gimlie-adler.github.io/596448/'
                 }
             }).then(response => {
                 if (response.ok) {
